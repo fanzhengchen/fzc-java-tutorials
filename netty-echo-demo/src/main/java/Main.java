@@ -15,17 +15,7 @@ import java.net.InetSocketAddress;
 public class Main {
 
     public static void main(String[] args) {
-        final int port = 30000;
-        EchoClient client = new EchoClient(new InetSocketAddress("localhost", port));
-        EchoServer server = new EchoServer(port);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                log.info("server bind");
-                server.bind();
-            }
-        }).start();
-        log.info("client connect");
-        client.connect();
+
+
     }
 }

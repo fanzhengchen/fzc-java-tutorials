@@ -16,7 +16,7 @@ public class FzxSortTest {
 
     @Test
     public void testQuickSort() {
-        int n = 800000;
+        int n = 50000;
         int module = (1 << 25);
         int[] array = new int[n];
         for (int i = 0; i < n; ++i) {
@@ -31,7 +31,7 @@ public class FzxSortTest {
 
     @Test
     public void testSwapSort() {
-        int n = 80;
+        int n = 50000;
         int module = (1 << 25);
         int[] array = new int[n];
         for (int i = 0; i < n; ++i) {

@@ -25,6 +25,11 @@ public class EchoServer {
 
     final int port;
 
+    public static void main(String[] args){
+        EchoServer server = new EchoServer(30000);
+        server.bind();
+    }
+
     public EchoServer(int port) {
         this.port = port;
         serverBootstrap = new ServerBootstrap();

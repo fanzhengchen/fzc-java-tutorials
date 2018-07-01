@@ -30,6 +30,11 @@ public class EchoClient {
     final Bootstrap bootstrap;
     final InetSocketAddress address;
 
+    public static void main(String[] args){
+        EchoClient client = new EchoClient(new InetSocketAddress("localhost",30000));
+        client.connect();
+    }
+
 
     public EchoClient(InetSocketAddress address) {
         this.address = address;
