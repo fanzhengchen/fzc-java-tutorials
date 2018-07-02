@@ -35,7 +35,9 @@ public class EchoClient {
     final InetSocketAddress address;
 
     public static void main(String[] args){
-        EchoClient client = new EchoClient(new InetSocketAddress("localhost",30000));
+        String host = args[0];
+        int port = Integer.parseInt(args[1]);
+        EchoClient client = new EchoClient(new InetSocketAddress(host,port));
         client.connect();
     }
 
