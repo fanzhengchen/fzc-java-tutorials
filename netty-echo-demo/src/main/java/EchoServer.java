@@ -25,7 +25,7 @@ public class EchoServer {
 
     final ServerBootstrap serverBootstrap;
     final NioEventLoopGroup bossGroup = new NioEventLoopGroup(1);
-    final NioEventLoopGroup workerGroup = new NioEventLoopGroup(2);
+    final NioEventLoopGroup workerGroup = new NioEventLoopGroup();
 
     final int port;
 
@@ -41,7 +41,7 @@ public class EchoServer {
                 .channel(NioServerSocketChannel.class)
                 .childHandler(new ChannelInitializer<SocketChannel>() {
                     @Override
-                    protected void initChannel(SocketChannel ch) throws Exception {
+                    protected void initChannel(SocketChannel ch) {
                         ChannelPipeline pipeline = ch.pipeline();
 //                        pipeline.addLast("framer", new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
 //                        pipeline.addLast("decoder", new StringDecoder());
