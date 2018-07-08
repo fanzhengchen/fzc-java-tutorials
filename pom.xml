@@ -20,6 +20,8 @@
         <module>custom-thread-pool</module>
         <module>quick-sort</module>
         <module>dead-lock</module>
+        <module>semaphore</module>
+        <module>interrupt</module>
     </modules>
 
 
