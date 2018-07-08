@@ -19,7 +19,13 @@
         <module>netty-echo-demo</module>
         <module>custom-thread-pool</module>
         <module>quick-sort</module>
+<<<<<<< HEAD
         <module>even-odd-print</module>
+=======
+        <module>dead-lock</module>
+        <module>semaphore</module>
+        <module>interrupt</module>
+>>>>>>> a64183d85df2ddd896c5f76ec4d83127445fbdd4
     </modules>
 
 

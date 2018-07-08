@@ -3,6 +3,10 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.DelimiterBasedFrameDecoder;
+import io.netty.handler.codec.Delimiters;
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,7 +36,9 @@ public class EchoClient {
     final AtomicInteger connectDelaySeconds = new AtomicInteger(1);
 
     public static void main(String[] args){
-        EchoClient client = new EchoClient(new InetSocketAddress("localhost",30000));
+        String host = args[0];
+        int port = Integer.parseInt(args[1]);
+        EchoClient client = new EchoClient(new InetSocketAddress(host,port));
         client.connect();
     }
 
@@ -48,6 +54,9 @@ public class EchoClient {
                     @Override
                     protected void initChannel(SocketChannel socketChannel) throws Exception {
                         ChannelPipeline pipeline = socketChannel.pipeline();
+//                        pipeline.addLast("framer", new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
+//                        pipeline.addLast("decoder", new StringDecoder());
+//                        pipeline.addLast("encoder", new StringEncoder());
                         pipeline.addLast(new EchoClientHandler());
                     }
                 });

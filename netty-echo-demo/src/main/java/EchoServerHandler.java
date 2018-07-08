@@ -19,18 +19,23 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        log.info("server channel active");
+        log.info("server channel active {}",ctx);
     }
 
     @Override
     public void channelRead(final ChannelHandlerContext ctx, final Object msg) throws Exception {
-        log.info("server channel read {}", msg);
+        ctx.write(msg);
+        log.info("server channel read {}",ctx);
+    }
 
-        ctx.executor().schedule(new Runnable() {
-            @Override
-            public void run() {
-                ctx.writeAndFlush(msg);
-            }
-        }, 5, TimeUnit.SECONDS);
+    @Override
+    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+        ctx.flush();
+    }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        cause.printStackTrace();
+        ctx.close();
     }
 }

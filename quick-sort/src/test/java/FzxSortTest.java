@@ -24,14 +24,12 @@ public class FzxSortTest {
         }
         FzcSort sort = new FzcSort(array);
         sort.quickSort();
-        System.out.println(sort.toString());
-        System.out.println(array.length);
         Assert.assertTrue(checkIfIncrease(array));
     }
 
     @Test
     public void testSwapSort() {
-        int n = 50000;
+        int n = 500;
         int module = (1 << 25);
         int[] array = new int[n];
         for (int i = 0; i < n; ++i) {
@@ -39,8 +37,6 @@ public class FzxSortTest {
         }
         FzcSort sort = new FzcSort(array);
         sort.swapSort();
-        System.out.println(sort.toString());
-        System.out.println(array.length);
         Assert.assertTrue(checkIfIncrease(array));
     }
 
