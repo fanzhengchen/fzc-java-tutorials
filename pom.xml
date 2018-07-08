@@ -19,6 +19,7 @@
         <module>netty-echo-demo</module>
         <module>custom-thread-pool</module>
         <module>quick-sort</module>
+        <module>even-odd-print</module>
     </modules>
 
 

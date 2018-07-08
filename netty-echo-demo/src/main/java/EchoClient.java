@@ -1,7 +1,5 @@
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.ChannelPipeline;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -11,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.net.Inet4Address;
 import java.net.InetSocketAddress;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 /**
@@ -25,10 +24,12 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class EchoClient {
 
+    private static final int MAX_DELAY = 1 << 29;
 
     final NioEventLoopGroup workerGroup = new NioEventLoopGroup(1);
     final Bootstrap bootstrap;
     final InetSocketAddress address;
+    final AtomicInteger connectDelaySeconds = new AtomicInteger(1);
 
     public static void main(String[] args){
         EchoClient client = new EchoClient(new InetSocketAddress("localhost",30000));
@@ -55,16 +56,25 @@ public class EchoClient {
 
     public void connect() {
         try {
-            bootstrap.connect(address).sync();
+            bootstrap.connect(address).sync().addListener(future -> {
+                if(future.isSuccess()){
+                    connectDelaySeconds.set(1);
+                }
+            });
         } catch (InterruptedException e) {
+            log.error("disconnected");
             e.printStackTrace();
         } finally {
+            int oldValue = connectDelaySeconds.intValue();
+            int newValue = Math.min(oldValue << 1, MAX_DELAY);
+            connectDelaySeconds.compareAndSet(oldValue,newValue);
             workerGroup.schedule(new Runnable() {
                 @Override
                 public void run() {
+                    log.error("try reconnect {}",connectDelaySeconds.get());
                     connect();
                 }
-            }, 3, TimeUnit.SECONDS);
+            }, newValue, TimeUnit.SECONDS);
         }
     }
 }
