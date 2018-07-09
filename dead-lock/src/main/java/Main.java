@@ -75,8 +75,8 @@ public class Main {
         System.out.println("end dead lock failed!!!");
     }
 
-    private static Thread createThread(ReentrantLock firstLock, Condition firstCondition,
-                                       ReentrantLock secondLock, Condition secondCondition) {
+    private static Thread createThread(final ReentrantLock firstLock, final Condition firstCondition,
+                                       final ReentrantLock secondLock, final Condition secondCondition) {
         return new Thread(new Runnable() {
             @Override
             public void run() {
@@ -100,7 +100,7 @@ public class Main {
     }
 
 
-    private static Thread createThread(Object lock1, Object lock2) {
+    private static Thread createThread(final Object lock1, final Object lock2) {
         return new Thread(new Runnable() {
             @Override
             public void run() {

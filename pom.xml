@@ -13,7 +13,9 @@
         <lombok-version>1.18.0</lombok-version>
         <logback-version>1.2.3</logback-version>
         <guava-version>23.0</guava-version>
+        <akka-version>2.5.13</akka-version>
     </properties>
+
 
     <modules>
         <module>custom-rxjava</module>
@@ -24,7 +26,24 @@
         <module>dead-lock</module>
         <module>semaphore</module>
         <module>interrupt</module>
+        <module>custom-lock</module>
+        <module>akka-demo</module>
     </modules>
+
+    <repositories>
+        <repository>
+            <id>nexus-aliyun</id>
+            <name>Nexus aliyun</name>
+            <layout>default</layout>
+            <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+    </repositories>
 
 
     <dependencyManagement>
@@ -47,17 +66,22 @@
                 <version>${guava-version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.scala-lang</groupId>
+                <artifactId>scala-library</artifactId>
+                <version>2.12.6</version>
+            </dependency>
+
+
+            <!--<dependency>-->
+                <!--<groupId>com.typesafe.akka</groupId>-->
+                <!--<artifactId>akka-testkit_2.12</artifactId>-->
+                <!--<version>2.5.13</version>-->
+                <!--<scope>test</scope>-->
+            <!--</dependency>-->
+
 
         </dependencies>
     </dependencyManagement>
-
-    <repositories>
-        <repository>
-            <id>maven-central</id>
-            <name>mave-central</name>
-            <url> https://mvnrepository.com/artifact</url>
-        </repository>
-    </repositories>
-
 
 </project>
