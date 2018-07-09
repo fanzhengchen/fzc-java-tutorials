@@ -12,6 +12,7 @@
     <properties>
         <lombok-version>1.18.0</lombok-version>
         <logback-version>1.2.3</logback-version>
+        <guava-version>23.0</guava-version>
     </properties>
 
     <modules>
@@ -39,9 +40,23 @@
                 <version>${logback-version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava-version}</version>
+            </dependency>
+
 
         </dependencies>
     </dependencyManagement>
+
+    <repositories>
+        <repository>
+            <id>maven-central</id>
+            <name>mave-central</name>
+            <url> https://mvnrepository.com/artifact</url>
+        </repository>
+    </repositories>
 
 
 </project>
