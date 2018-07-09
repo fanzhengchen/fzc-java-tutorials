@@ -17,11 +17,12 @@ public class LockTest {
 
 
     private volatile int count;
+    private ExecutorService executorService =
+            Executors.newFixedThreadPool(10);
 
     @Test
     public void testSynchronizedLock() throws Exception {
-        ExecutorService executorService =
-                Executors.newFixedThreadPool(10);
+
         final SynchronizedLock lock = new SynchronizedLock();
         count = 0;
         int n = 10000;
@@ -43,4 +44,39 @@ public class LockTest {
 
         Assert.assertTrue(n == count);
     }
+
+    @Test
+    public void testReenterLock() throws Exception {
+        final ReenterLock lock = new ReenterLock();
+        count = 0;
+        Runnable x = new Runnable() {
+            @Override
+            public void run() {
+                lock.lock();
+                try {
+                    count += 100;
+                    System.out.println("count " + count);
+                } finally {
+                    lock.unlock();
+                }
+            }
+        };
+        Runnable y = new Runnable() {
+            @Override
+            public void run() {
+                lock.lock();
+                try {
+                    count += 1000;
+                    System.out.println("count " + count);
+                    x.run();
+                } finally {
+                    lock.unlock();
+                }
+            }
+        };
+        y.run();
+        System.out.println(count);
+    }
+
+
 }
