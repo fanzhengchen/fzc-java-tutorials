@@ -79,4 +79,28 @@ public class LockTest {
     }
 
 
+    @Test
+    public void testMyBlockingQueue() throws Exception {
+        ArrayBlockingQueue<Integer> queue =
+                new ArrayBlockingQueue<>();
+        int n = 100;
+        for (int i = 0; i < n; ++i) {
+            final int j = i;
+            executorService.execute(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println("Thread: " + Thread.currentThread().getName());
+                    queue.push(j);
+                }
+            });
+        }
+        Thread.sleep(2000);
+        Assert.assertEquals(queue.size(), n);
+
+        while (!queue.isEmpty()){
+            System.out.println(queue.pop());
+        }
+    }
+
+
 }
