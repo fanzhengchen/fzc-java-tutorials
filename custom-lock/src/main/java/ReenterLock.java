@@ -43,9 +43,6 @@ public class ReenterLock extends AbstractQueuedSynchronizer {
         Thread current = Thread.currentThread();
         int state = getState();
         if (state > 0 && getExclusiveOwnerThread() == current) {
-//            if (compareAndSetState(state, state + arg)) {
-//                return true;
-//            }
             setState(state + arg);
             return true;
         } else if (state == 0 && compareAndSetState(0, arg)) {
