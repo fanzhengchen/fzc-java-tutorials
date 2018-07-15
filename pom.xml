@@ -28,6 +28,10 @@
         <module>interrupt</module>
         <module>custom-lock</module>
         <module>akka-demo</module>
+        <module>try-guava</module>
+        <module>bytebuffer</module>
+        <module>nio-demo</module>
+        <module>dp</module>
     </modules>
 
     <repositories>

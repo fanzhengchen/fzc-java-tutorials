@@ -47,8 +47,24 @@ public class Main {
         }, 0, 5, TimeUnit.SECONDS);
 
         System.out.println("llll");
+        SyncLock syncLock = new SyncLock();
         try {
+
+            syncLock.lock();
+            try{
+                System.out.println("first ");
+                syncLock.lock();
+                try{
+                    System.out.println("dead lock failed");
+                }finally {
+                    syncLock.unlock();
+                }
+            }finally {
+                syncLock.unlock();
+            }
+
             main();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
